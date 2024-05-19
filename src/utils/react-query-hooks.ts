@@ -24,7 +24,7 @@ export const useSignup = ({
     },
     {
       onMutate: () => {
-        toastRef.current = toast.loading('');
+        // toastRef.current = toast.loading('');
         onMutate?.();
       },
       onSuccess: () => {

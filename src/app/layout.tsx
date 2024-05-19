@@ -39,10 +39,7 @@ export default async function RootLayout({
     >
       <head />
       <body>
-        <div className="flex pt-2 flex-col min-h-screen bg-white dark:bg-gray-900">
-          <ClientLayout>{children}</ClientLayout>
-          {/* <Footer /> */}
-        </div>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

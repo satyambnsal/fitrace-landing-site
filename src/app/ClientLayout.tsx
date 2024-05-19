@@ -7,13 +7,9 @@ const queryClient = new QueryClient();
 
 export const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="flex-1">
-      <div className="container">
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-        <Toaster />
-      </div>
-    </main>
+    <>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <Toaster />
+    </>
   );
 };

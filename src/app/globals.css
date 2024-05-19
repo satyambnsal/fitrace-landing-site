@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
   height: 100%;
@@ -14,11 +15,9 @@ body {
 }
 
 .dotted-bg {
-  background-image: radial-gradient(
-    circle,
-    var(--dot-color) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle,
+      var(--dot-color) 1px,
+      transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -144,6 +143,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: 'rlig' 1, 'calt' 1;
@@ -154,3 +154,8 @@ body {
 
 
 @tailwind variants;
+
+
+input {
+  outline: none;
+}
