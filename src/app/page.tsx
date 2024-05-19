@@ -1,8 +1,17 @@
 'use client';
 import Spinner from '@/components/Spinner';
-import { TWITTER_URL, GITHUB_URL } from '@/constants';
+import { TWITTER_URL, GITHUB_URL, DOCS_URL } from '@/constants';
 import { useSignup } from '@/utils/react-query-hooks';
 import { useState } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+
 
 export default function Component() {
   const [name, setName] = useState('');
@@ -15,24 +24,40 @@ export default function Component() {
     }
   };
 
+  const carousalImages = [
+    "screenshots/shot1.jpeg",
+    "screenshots/shot2.jpeg",
+    "screenshots/shot3.jpeg",
+    "screenshots/shot4.jpeg",
+    "screenshots/shot5.jpeg",
+  ]
+
   return (
     <body
       className="leading-normal tracking-normal text-indigo-400 bg-cover bg-fixed"
       style={{ backgroundImage: "url('header.png')" }}
     >
+
       <div className="min-h-screen">
         <div className="w-full container mx-auto">
           <div className="w-full flex items-center justify-between">
             <a
-              className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-              href="#"
-            >
+              className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
               Fit
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
                 Race
               </span>
             </a>
             <div className="flex w-1/2 justify-end content-center">
+              <div className="">
+                <a
+                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  href={DOCS_URL}
+                  target='_blank'
+                >
+                  About
+                </a>
+              </div>
               <div className="">
                 <a
                   className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
@@ -150,10 +175,32 @@ export default function Component() {
               </form>
             </div>
             <div className="w-full p-12 overflow-hidden col-span-5">
-              <img
-                className="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6"
-                src="macbook.svg"
-              />
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+
+                plugins={[
+                  Autoplay({
+                    delay: 2000,
+                  }),
+                ]}
+              >
+                <CarouselContent>
+                  {
+                    carousalImages.map((img) => {
+                      return (
+                        <CarouselItem className='py-6'>
+                          <img src={img} alt="app sample" className='rounded-xl object-contain rotate-[4deg] hover:rotate-12 transition-all h-[512px] w-[300px] object-cover mx-auto' />
+                        </CarouselItem>
+                      )
+                    })
+                  }
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
             </div>
           </div>
 
