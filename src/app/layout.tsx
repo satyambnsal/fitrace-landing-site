@@ -1,13 +1,13 @@
 import { ClientLayout } from './ClientLayout';
 import { Inter, Roboto_Mono, Poppins } from 'next/font/google';
 import './globals.css';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 
-// const inter = Inter({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-inter',
-// });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 const roboto_mono = Roboto_Mono({
   subsets: ['latin'],
@@ -33,7 +33,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto_mono.variable}`}>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${inter.variable} ${roboto_mono.variable}`}
+    >
       <head />
       <body>
         <div className="flex pt-2 flex-col min-h-screen bg-white dark:bg-gray-900">
