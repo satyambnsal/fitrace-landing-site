@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    name: Build with ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'imbhargav5/nextbase-nextjs13-supabase-starter'}}
+    steps:
+      - name: 'Check if user has write access'
+        uses: 'lannonbr/repo-permission-check-action@2.0.0'
+        with:
+          permission: 'write'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: github.event_name == 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - if: github.event_name != 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: 🚂 CI Setup
+        uses: ./.github/actions/ci-setup
+      - run: yarn run build
+
+  test:
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    name: Run all tests
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'imbhargav5/nextbase-nextjs13-supabase-starter'}}
+    steps:
+      - name: 'Check if user has write access'
+        uses: 'lannonbr/repo-permission-check-action@2.0.0'
+        with:
+          permission: 'write'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: github.event_name == 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - if: github.event_name != 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: 🚂 CI Setup
+        uses: ./.github/actions/ci-setup
+      - if: github.event_name == 'pull_request'
+        uses: wagoid/commitlint-github-action@v5
+      - name: Linter
+        run: yarn run lint
+
+      - name: Type checking
+        run: yarn run tsc
+
+      - name: Run unit tests
+        run: yarn run test
+      - name: Install playwright browsers
+        run: yarn playwright install --with-deps
+
+      - name: Run e2e tests
+        run: yarn run test:e2e

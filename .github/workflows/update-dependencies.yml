@@ -1,0 +1,45 @@
+name: Update dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */7 * *'
+
+jobs:
+  update:
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    name: Update all dependencies
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'imbhargav5/nextbase-nextjs13-supabase-starter'}}
+    steps:
+      - name: 'Check if user has write access'
+        uses: 'lannonbr/repo-permission-check-action@2.0.0'
+        with:
+          permission: 'write'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: github.event_name == 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: false
+      - if: github.event_name != 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: 🚂 CI Setup
+        uses: ./.github/actions/ci-setup
+      - run: yarn npm-check-updates -u # Update dependencies
+      - run: rm -Rf node_modules yarn.lock
+      - run: yarn
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          commit-message: 'build: update dependencies to the latest version'
+          title: Update dependencies to the latest version

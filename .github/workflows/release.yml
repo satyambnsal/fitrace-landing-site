@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    name: Create a new release
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'imbhargav5/nextbase-nextjs13-supabase-starter'}}
+    steps:
+      - name: 'Check if user has write access'
+        uses: 'lannonbr/repo-permission-check-action@2.0.0'
+        with:
+          permission: 'write'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: github.event_name == 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: false
+      - if: github.event_name != 'pull_request'
+        name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: 🚂 CI Setup
+        uses: ./.github/actions/ci-setup
+      - name: Semantic release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: yarn semantic-release
