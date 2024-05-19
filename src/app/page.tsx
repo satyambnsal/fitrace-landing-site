@@ -9,9 +9,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
-
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import Image from 'next/image';
 
 export default function Component() {
   const [name, setName] = useState('');
@@ -25,24 +25,42 @@ export default function Component() {
   };
 
   const carousalImages = [
-    "screenshots/shot1.jpeg",
-    "screenshots/shot2.jpeg",
-    "screenshots/shot3.jpeg",
-    "screenshots/shot4.jpeg",
-    "screenshots/shot5.jpeg",
-  ]
+    {
+      id: 1,
+      title: 'landing',
+      path: '/screenshots/shot1.jpeg',
+    },
+    {
+      id: 2,
+      title: 'game',
+      path: '/screenshots/shot2.jpeg',
+    },
+    {
+      id: 3,
+      title: 'rules',
+      path: '/screenshots/shot3.jpeg',
+    },
+    {
+      id: 4,
+      title: 'settings',
+      path: '/screenshots/shot4.jpeg',
+    },
+    {
+      id: 5,
+      title: 'market',
+      path: '/screenshots/shot5.jpeg',
+    },
+  ];
 
   return (
     <body
       className="leading-normal tracking-normal text-indigo-400 bg-cover bg-fixed"
       style={{ backgroundImage: "url('header.png')" }}
     >
-
       <div className="min-h-screen">
         <div className="w-full container mx-auto">
           <div className="w-full flex items-center justify-between">
-            <a
-              className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
+            <a className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
               Fit
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
                 Race
@@ -53,9 +71,9 @@ export default function Component() {
                 <a
                   className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   href={DOCS_URL}
-                  target='_blank'
+                  target="_blank"
                 >
-                  About
+                  Documentation
                 </a>
               </div>
               <div className="">
@@ -118,14 +136,14 @@ export default function Component() {
               <h1 className="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
                 FitRace{' '}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                  is a Web3 lifestyle application that integrates game and
-                  social elements, making everyday movement not just beneficial
-                  for health but also rewarding in the digital space.
+                  is a Web3 lifestyle application on Starknet.
                 </span>
               </h1>
               <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
-                By equipping NFT Sneakers, users are ready to walk, jog, or run
-                outdoors, earning game Tokens and NFTs in the process.
+                In the app, Players can purchase NFT sneakers and equip them to
+                earn rewards. Initial version plans to have three sneaker
+                categories namely Walker, Jogger and Runner with following
+                properties.
               </p>
 
               <form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 max-w-[500px]">
@@ -177,10 +195,9 @@ export default function Component() {
             <div className="w-full p-12 overflow-hidden col-span-5">
               <Carousel
                 opts={{
-                  align: "start",
+                  align: 'start',
                   loop: true,
                 }}
-
                 plugins={[
                   Autoplay({
                     delay: 2000,
@@ -188,15 +205,19 @@ export default function Component() {
                 ]}
               >
                 <CarouselContent>
-                  {
-                    carousalImages.map((img) => {
-                      return (
-                        <CarouselItem className='py-6'>
-                          <img src={img} alt="app sample" className='rounded-xl object-contain rotate-[4deg] hover:rotate-12 transition-all h-[512px] w-[300px] object-cover mx-auto' />
-                        </CarouselItem>
-                      )
-                    })
-                  }
+                  {carousalImages.map(({ id, title, path }) => {
+                    return (
+                      <CarouselItem className="py-6" key={id}>
+                        <Image
+                          src={path}
+                          alt={title}
+                          className="rounded-xl rotate-[4deg] hover:rotate-12 transition-all h-[512px] object-cover mx-auto"
+                          width={300}
+                          height={512}
+                        />
+                      </CarouselItem>
+                    );
+                  })}
                 </CarouselContent>
                 <CarouselPrevious />
                 <CarouselNext />
