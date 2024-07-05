@@ -39,9 +39,9 @@ export function GET(req: NextRequest) {
   const payload = data;
   payload.name += ` #${id}`;
   if (id < 6) {
-    payload.image = `${IMAGE_BASE_URL}${id}.png`;
+    payload.image = `${IMAGE_BASE_URL}${id}.jpeg`;
   } else {
-    payload.image = `${IMAGE_BASE_URL}default.png`;
+    payload.image = `${IMAGE_BASE_URL}default.jpeg`;
   }
   return Response.json(payload);
 }
