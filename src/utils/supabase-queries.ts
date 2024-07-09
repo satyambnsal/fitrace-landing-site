@@ -2,8 +2,10 @@ import { AppSupabaseClient, Table } from '@/types';
 
 export const getAllEmails = async (
   supabase: AppSupabaseClient
-): Promise<Array<Table<'signup_emails'>>> => {
-  const { data, error } = await supabase.from('signup_emails').select('*');
+): Promise<Array<Table<'fitrace_signup_emails'>>> => {
+  const { data, error } = await supabase
+    .from('fitrace_signup_emails')
+    .select('*');
 
   if (error) {
     throw error;
@@ -15,9 +17,9 @@ export const getAllEmails = async (
 export const insertEmail = async (
   supabase: AppSupabaseClient,
   item: { name: string; email: string }
-): Promise<Table<'signup_emails'>> => {
+): Promise<Table<'fitrace_signup_emails'>> => {
   const { data, error } = await supabase
-    .from('signup_emails')
+    .from('fitrace_signup_emails')
     .insert(item)
     .select('*')
     .single();

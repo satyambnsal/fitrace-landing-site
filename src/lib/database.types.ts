@@ -9,6 +9,92 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      fitrace_signup_emails: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: number
+          name: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: number
+          name?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: number
+          name?: string | null
+        }
+        Relationships: []
+      }
+      game_scores: {
+        Row: {
+          competition_key: string
+          created_at: string
+          game_id: number
+          id: number
+          score: number
+          updated_at: string | null
+          wallet_address: string
+        }
+        Insert: {
+          competition_key: string
+          created_at?: string
+          game_id: number
+          id?: number
+          score: number
+          updated_at?: string | null
+          wallet_address: string
+        }
+        Update: {
+          competition_key?: string
+          created_at?: string
+          game_id?: number
+          id?: number
+          score?: number
+          updated_at?: string | null
+          wallet_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_scores_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: true
+            referencedRelation: "transaction_logs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      player_profile: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          fullname: string | null
+          id: number
+          username: string
+          wallet_address: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          fullname?: string | null
+          id?: number
+          username: string
+          wallet_address: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          fullname?: string | null
+          id?: number
+          username?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
       signup_emails: {
         Row: {
           created_at: string
@@ -27,6 +113,138 @@ export type Database = {
           email?: string
           id?: string
           name?: string
+        }
+        Relationships: []
+      }
+      tileville_competitions: {
+        Row: {
+          competition_tweet_content: string
+          created_at: string
+          currency_symbol: string
+          description: string
+          end_date: string
+          funds: number
+          id: number
+          is_speed_version: boolean
+          name: string
+          participation_fee: number | null
+          poster_url: string | null
+          priority: number
+          prizes: Json | null
+          score_tweet_content: string
+          seed: number
+          speed_duration: number
+          start_date: string
+          treasury_address: string | null
+          unique_keyname: string
+        }
+        Insert: {
+          competition_tweet_content?: string
+          created_at?: string
+          currency_symbol?: string
+          description: string
+          end_date: string
+          funds?: number
+          id?: number
+          is_speed_version?: boolean
+          name: string
+          participation_fee?: number | null
+          poster_url?: string | null
+          priority?: number
+          prizes?: Json | null
+          score_tweet_content?: string
+          seed?: number
+          speed_duration?: number
+          start_date: string
+          treasury_address?: string | null
+          unique_keyname: string
+        }
+        Update: {
+          competition_tweet_content?: string
+          created_at?: string
+          currency_symbol?: string
+          description?: string
+          end_date?: string
+          funds?: number
+          id?: number
+          is_speed_version?: boolean
+          name?: string
+          participation_fee?: number | null
+          poster_url?: string | null
+          priority?: number
+          prizes?: Json | null
+          score_tweet_content?: string
+          seed?: number
+          speed_duration?: number
+          start_date?: string
+          treasury_address?: string | null
+          unique_keyname?: string
+        }
+        Relationships: []
+      }
+      transaction_logs: {
+        Row: {
+          competition_key: string
+          created_at: string
+          id: number
+          is_game_played: boolean
+          network: string
+          txn_hash: string
+          txn_status: string
+          wallet_address: string
+        }
+        Insert: {
+          competition_key: string
+          created_at?: string
+          id?: number
+          is_game_played?: boolean
+          network?: string
+          txn_hash: string
+          txn_status?: string
+          wallet_address: string
+        }
+        Update: {
+          competition_key?: string
+          created_at?: string
+          id?: number
+          is_game_played?: boolean
+          network?: string
+          txn_hash?: string
+          txn_status?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
+      voucher_codes: {
+        Row: {
+          code: string
+          competition_id: number | null
+          created_at: string
+          expiry_date: string | null
+          id: number
+          is_redeemed: boolean
+          redeemed_at: string | null
+          redeemed_by: string | null
+        }
+        Insert: {
+          code: string
+          competition_id?: number | null
+          created_at?: string
+          expiry_date?: string | null
+          id?: number
+          is_redeemed?: boolean
+          redeemed_at?: string | null
+          redeemed_by?: string | null
+        }
+        Update: {
+          code?: string
+          competition_id?: number | null
+          created_at?: string
+          expiry_date?: string | null
+          id?: number
+          is_redeemed?: boolean
+          redeemed_at?: string | null
+          redeemed_by?: string | null
         }
         Relationships: []
       }
