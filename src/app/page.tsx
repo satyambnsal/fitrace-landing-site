@@ -28,27 +28,22 @@ export default function Component() {
     {
       id: 1,
       title: 'landing',
-      path: '/screenshots/shot1.jpeg',
+      path: '/screenshots/newShot1.jpg',
     },
     {
       id: 2,
       title: 'game',
-      path: '/screenshots/shot2.jpeg',
+      path: '/screenshots/newShot2.jpg',
     },
     {
       id: 3,
       title: 'rules',
-      path: '/screenshots/shot3.jpeg',
+      path: '/screenshots/newShot3.jpg',
     },
     {
       id: 4,
       title: 'settings',
-      path: '/screenshots/shot4.jpeg',
-    },
-    {
-      id: 5,
-      title: 'market',
-      path: '/screenshots/shot5.jpeg',
+      path: '/screenshots/newShot4.jpg',
     },
   ];
 
@@ -80,6 +75,7 @@ export default function Component() {
                 <a
                   className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   href={TWITTER_URL}
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +126,7 @@ export default function Component() {
           </div>
         </div>
 
-        <div className="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <div className="container pt-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <div className="grid grid-cols-12">
             <div className="flex flex-col justify-center lg:items-start overflow-y-hidden col-span-7">
               <h1 className="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
@@ -211,9 +207,9 @@ export default function Component() {
                         <Image
                           src={path}
                           alt={title}
-                          className="rounded-xl rotate-[4deg] hover:rotate-12 transition-all h-[512px] object-cover mx-auto"
-                          width={300}
-                          height={512}
+                          className="rounded-xl rotate-[4deg] hover:rotate-12 transition-all h-[600px] object-cover mx-auto"
+                          width={250}
+                          height={620}
                         />
                       </CarouselItem>
                     );
@@ -230,13 +226,19 @@ export default function Component() {
               Download our app:
             </p>
             <div className="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
-              <img
+              <Image
                 src="app_store.svg"
-                className="h-12 pr-12 transform hover:scale-125 duration-300 ease-in-out"
+                className="h-12 transform hover:scale-125 duration-300 ease-in-out"
+                alt="app store"
+                width={190}
+                height={48}
               />
-              <img
+              <Image
                 src="play_store.svg"
                 className="h-12 transform hover:scale-125 duration-300 ease-in-out"
+                alt="play store"
+                width={170}
+                height={48}
               />
             </div>
           </div>
