@@ -1,6 +1,11 @@
 'use client';
 import Spinner from '@/components/Spinner';
-import { TWITTER_URL, GITHUB_URL, DOCS_URL } from '@/constants';
+import {
+  TWITTER_URL,
+  GITHUB_URL,
+  DOCS_URL,
+  PRESENTATION_URL,
+} from '@/constants';
 import { useSignup } from '@/utils/react-query-hooks';
 import { useState } from 'react';
 import {
@@ -12,6 +17,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
+import { PresentationModal } from '@/components/PresentationModal';
 
 export default function Component() {
   const [name, setName] = useState('');
@@ -62,6 +68,20 @@ export default function Component() {
               </span>
             </a>
             <div className="flex w-1/2 justify-end content-center">
+              <div className="">
+                <PresentationModal />
+              </div>
+
+              <div className="">
+                <a
+                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  href={PRESENTATION_URL}
+                  target="_blank"
+                >
+                  Pitch Deck
+                </a>
+              </div>
+
               <div className="">
                 <a
                   className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
