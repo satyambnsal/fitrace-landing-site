@@ -1,6 +1,6 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
   @layer base {
     :root {
@@ -13,11 +13,11 @@
       --popover: 0 0% 100%;
       --popover-foreground: 0 0% 3.9%;
 
-      --primary: 0 0% 9%;
-      --primary-foreground: 0 0% 98%;
+      --primary: 243, 48%, 16%;
+      --primary-foreground: 280, 34%, 76%;
 
-      --secondary: 0 0% 96.1%;
-      --secondary-foreground: 0 0% 9%;
+      --secondary: 249, 51%, 28%;
+      --secondary-foreground: 245, 39%, 39%;
 
       --muted: 0 0% 96.1%;
       --muted-foreground: 0 0% 45.1%;
@@ -73,4 +73,21 @@
     body {
       @apply bg-background text-foreground;
     }
+  }
+
+  body{
+    background: radial-gradient(circle 330px at 73% center, hsla(var(--primary-foreground), 0.3) 0%, hsla(var(--primary), 0.1) 100%), hsl(var(--primary));
+  }
+
+  .text-gradient{
+   background: linear-gradient(45deg, #C8ACD6, #433D8B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #C8ACD6; /* fallback color */
+  }
+
+
+  .bg-gradient{
+    background: linear-gradient(45deg, #C8ACD6, #433D8B);
   }

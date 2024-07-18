@@ -5,12 +5,12 @@ export function PresentationModal() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="no-underline  flex items-center gap-2 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out">
+                <button className="no-underline  flex items-center gap-2 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out text-primary-foreground hover:opacity-80">
                     <VideoIcon />
                     <span>Watch Demo</span>
                 </button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] text-black bg-transparent backdrop-blur-md border-none bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+            <DialogContent className="sm:max-w-[425px] text-white bg-transparent backdrop-blur-lg border-none bg-[#2e236c99]">
                 <div className="p-4">
                     <video
                         src="/video/demo.mov"

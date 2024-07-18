@@ -54,18 +54,13 @@ export default function Component() {
   ];
 
   return (
-    <body
-      className="leading-normal tracking-normal text-indigo-400 bg-cover bg-fixed"
-      style={{ backgroundImage: "url('header.png')" }}
-    >
+    <body className="leading-normal tracking-normal text-white bg-cover bg-fixed">
       <div className="min-h-screen">
         <div className="w-full container mx-auto">
           <div className="w-full flex items-center justify-between">
-            <a className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
+            <a className="flex items-center text-primary-foreground no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
               Fit
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                Race
-              </span>
+              <span className="text-gradient">Race</span>
             </a>
             <div className="flex w-1/2 justify-end content-center">
               <div className="">
@@ -74,7 +69,7 @@ export default function Component() {
 
               <div className="">
                 <a
-                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  className="inline-block text-primary-foreground no-underline hover:opacity-80 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   href={PRESENTATION_URL}
                   target="_blank"
                 >
@@ -84,7 +79,7 @@ export default function Component() {
 
               <div className="">
                 <a
-                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  className="inline-block text-primary-foreground no-underline hover:opacity-80 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   href={DOCS_URL}
                   target="_blank"
                 >
@@ -93,7 +88,7 @@ export default function Component() {
               </div>
               <div className="">
                 <a
-                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  className="inline-block text-primary-foreground no-underline hover:opacity-80 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   href={TWITTER_URL}
                   target="_blank"
                 >
@@ -115,7 +110,7 @@ export default function Component() {
 
               <div className="">
                 <a
-                  className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                  className="inline-block text-primary-foreground no-underline hover:opacity-80 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
                   target="_blank"
                   href={GITHUB_URL}
                 >
@@ -151,21 +146,21 @@ export default function Component() {
             <div className="flex flex-col justify-center lg:items-start overflow-y-hidden col-span-7">
               <h1 className="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
                 FitRace{' '}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+                <span className="text-gradient">
                   is a Web3 lifestyle application on Starknet.
                 </span>
               </h1>
-              <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+              <p className="leading-normal text-base md:text-xl mb-8 text-center md:text-left">
                 In the app, Players can purchase NFT sneakers and equip them to
                 earn rewards. Initial version plans to have three sneaker
                 categories namely Walker, Jogger and Runner with following
                 properties.
               </p>
 
-              <form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 max-w-[500px]">
+              <form className="bg-[#2e236c99] text-white w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 max-w-[500px]">
                 <div className="mb-4">
                   <label
-                    className="block text-blue-300 py-2 font-bold mb-2"
+                    className="block py-2 font-bold mb-2"
                     htmlFor="emailaddress"
                   >
                     Signup for our preview version
@@ -196,11 +191,11 @@ export default function Component() {
 
                 <div className="flex items-center justify-between pt-4">
                   <button
-                    className="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-8 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out relative"
+                    className="bg-gradient text-white font-bold py-2 px-8 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out relative"
                     type="button"
                     onClick={handleSignup}
                   >
-                    Sign Up
+                    Sign Up for a beta version
                     <span className="absolute right-2 top-1/2 -translate-y-1/2">
                       {signupMutation.isLoading && <Spinner />}
                     </span>
@@ -208,7 +203,7 @@ export default function Component() {
                 </div>
               </form>
             </div>
-            <div className="w-full p-12 overflow-hidden col-span-5">
+            <div className="w-full p-12 overflow-hidden col-span-5 text-primary-foreground">
               <Carousel
                 opts={{
                   align: 'start',
@@ -216,7 +211,7 @@ export default function Component() {
                 }}
                 plugins={[
                   Autoplay({
-                    delay: 2000,
+                    delay: 3000,
                   }),
                 ]}
               >
@@ -242,7 +237,7 @@ export default function Component() {
           </div>
 
           <div className="mx-auto md:pt-16">
-            <p className="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
+            <p className="text-primary-foreground font-bold pb-8 lg:pb-6 text-center">
               Download our app:
             </p>
             <div className="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
