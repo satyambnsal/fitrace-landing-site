@@ -1,6 +1,7 @@
 import { ClientLayout } from './ClientLayout';
 import { Inter, Roboto_Mono, Poppins } from 'next/font/google';
 import './globals.css';
+import { StarknetProvider } from '@/components/StarknetProvider';
 // import Footer from '@/components/Footer';
 
 const inter = Inter({
@@ -39,7 +40,9 @@ export default async function RootLayout({
     >
       <head />
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <StarknetProvider>{children}</StarknetProvider>
+        </ClientLayout>
       </body>
     </html>
   );
