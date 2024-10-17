@@ -35,6 +35,8 @@
     "@radix-ui/react-slider": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.2",
+    "@starknet-react/chains": "^3.0.1",
+    "@starknet-react/core": "^3.0.2",
     "@supabase/auth-helpers-nextjs": "^0.8.1",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.31.0",
