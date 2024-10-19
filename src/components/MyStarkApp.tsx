@@ -12,7 +12,8 @@ import {
   useSendTransaction,
   useProvider,
 } from '@starknet-react/core';
-import { Account, Contract } from 'starknet';
+import { Account, CallData, Contract, ec, stark } from 'starknet';
+import compiledAAaccount from '@/app/abi/FRTCoin.json' assert { type: 'json' };
 
 const abi = [
   {
@@ -31,14 +32,25 @@ const abi = [
     ],
     outputs: [],
   },
+  {
+    type: 'constructor',
+    name: 'constructor',
+    inputs: [
+      {
+        name: 'owner',
+        type: 'core::starknet::contract_address::ContractAddress',
+      },
+    ],
+  },
 ] as const satisfies Abi;
 
 const SECOND_ADDRESS =
-  '0x041b27f006d01a9d2c468e33a05f1951b6a7cd0ac562b928a8e0728d4e5627dc';
+  '0x06cf28a72f9da6d7de39f2c7ea3862a7a76d1fa3b72d8fccf1cf3704091da559';
 
 const MASTER_ADDRESS =
+  '0x06cf28a72f9da6d7de39f2c7ea3862a7a76d1fa3b72d8fccf1cf3704091da559' ||
   process.env.NEXT_PUBLIC_MASTER_ADDRESS ||
-  '0x0541b1f940b8da68bcc8f6a84805c3ab5e6f447aa78d015449179d423db94066';
+  'MY_MASTER_ADDRESS';
 const MASTER_KEY = process.env.NEXT_PUBLIC_MASTER_KEY || 'MY_KEY';
 
 const ETH_ADDRSS =
@@ -62,8 +74,7 @@ export const MyStarkApp = () => {
   const { connect, error } = useConnect();
   const { account, status } = useAccount();
   const { data, error: balanceError } = useBalance({
-    address:
-      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    address: ETH_ADDRSS,
   });
   console.log('error', error);
   console.log('statsu', status);
@@ -72,8 +83,7 @@ export const MyStarkApp = () => {
   const { chain } = useNetwork();
   const { contract } = useContract({
     abi,
-    address:
-      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    address: ETH_ADDRSS,
   });
 
   const { send, error: transferError } = useSendTransaction({
@@ -84,11 +94,47 @@ export const MyStarkApp = () => {
 
   console.log('send error', transferError);
 
-  const sendFromMaster = async () => {
-    const myCall = myEthContract.populate('transfer', [SECOND_ADDRESS, 1n]);
+  const sendFromMaster = async (recipientAddress) => {
+    const myCall = myEthContract.populate('transfer', [recipientAddress, 1n]);
     const res = await myEthContract.transfer(myCall.calldata);
     await provider.waitForTransaction(res.transaction_hash);
     console.log('tx hash', res.transaction_hash);
+    return res.transaction_hash;
+  };
+
+  const createAccount = async () => {
+    // Generate public and private key pair.
+    const privateKeyAX = stark.randomAddress();
+    console.log('AX_ACCOUNT_PRIVATE_KEY=', privateKeyAX);
+    const starkKeyPubAX = ec.starkCurve.getStarkKey(privateKeyAX);
+    console.log('AX_ACCOUNT_PUBLIC_KEY=', starkKeyPubAX);
+    const transactionHash = await sendFromMaster(starkKeyPubAX);
+    console.log('hash', transactionHash);
+
+    // Calculate future address of the account
+    const AAaccountConstructorCallData = CallData.compile({
+      super_admin_address: masterAccount.address,
+      publicKey: starkKeyPubAX,
+    });
+    const deployCall = new Account(provider, starkKeyPubAX, privateKeyAX);
+    const { transaction_hash: declTH, class_hash: decCH } =
+      await deployCall.declare({
+        contract: compiledAAaccount,
+      });
+    console.log('Customized account class hash =', decCH);
+    await provider.waitForTransaction(declTH);
+
+    // Deploy the account.
+
+    const { transaction_hash, contract_address } =
+      await deployCall.deployAccount({
+        classHash: transactionHash,
+        constructorCalldata: AAaccountConstructorCallData,
+        addressSalt: starkKeyPubAX,
+      });
+    await provider.waitForTransaction(transaction_hash);
+
+    console.log('New account address=', contract_address);
   };
 
   return (
@@ -116,10 +162,18 @@ export const MyStarkApp = () => {
       <button
         className="text-white p-8 bg-pink-300"
         onClick={() => {
-          sendFromMaster();
+          sendFromMaster(SECOND_ADDRESS);
         }}
       >
         Send From Master
+      </button>
+      <button
+        className="text-white p-8 bg-yellow-300"
+        onClick={() => {
+          createAccount();
+        }}
+      >
+        Create Account
       </button>
     </div>
   );
